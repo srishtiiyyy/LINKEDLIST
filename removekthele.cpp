@@ -10,34 +10,31 @@ struct ListNode {
 
 // ---------------- Delete k-th node ----------------
 ListNode* deleteKthNode(ListNode* head, int k) {
-    if (head == nullptr) return nullptr;  // empty list
-    if (k <= 0) return head;              // invalid k
+  if (head == NULL) return head;   // case 1: empty list
 
-    // Case 1: delete head
-    if (k == 1) {
-        ListNode* temp = head;
-        head = head->next;
-        delete temp;
-        return head;
-    }
-
-    // Traverse to (k-1)th node
+if (k == 1) {                    // case 2: deleting head
     ListNode* temp = head;
-    for (int i = 1; temp != nullptr && i < k - 1; i++) {
-        temp = temp->next;
-    }
-
-    // If k > length of list
-    if (temp == nullptr || temp->next == nullptr) return head;
-
-    // Delete k-th node
-    ListNode* delNode = temp->next;
-    temp->next = temp->next->next;
-    delete delNode;
-
+    head = head->next;
+    delete temp;                 // free memory of old head
     return head;
 }
 
+int cnt = 0;
+ListNode* temp = head;
+ListNode* prev = NULL;
+
+while (temp != NULL) {           // traverse the list
+    cnt++;
+    if (cnt == k) {              // found the k-th node
+        prev->next = prev->next->next;  // unlink it
+        delete temp;             // free memory
+        break;                   // done, stop loop
+    }
+    prev = temp;                 // move prev forward
+    temp = temp->next;           // move temp forward
+}
+return head;                     // return possibly updated head
+}
 // ---------------- Print list ----------------
 void printLL(ListNode* head) {
     while (head != nullptr) {
