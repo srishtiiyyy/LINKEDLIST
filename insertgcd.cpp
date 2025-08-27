@@ -65,6 +65,19 @@ public:
         while (nextnode != NULL) {
             // Compute gcd of current and next node values
             int gcdVal = __gcd(curr->val, nextnode->val);
+            // };
+
+// ------------------- Custom GCD Function -------------------
+// int myGCD(int a, int b) {
+//     // Euclidean Algorithm
+//     while (b != 0) {
+//         int temp = b;
+//         b = a % b;
+//         a = temp;
+//     }
+//     return a;
+// }
+
 
             // Create new node with gcd value
             ListNode* gcdnode = new ListNode(gcdVal);
